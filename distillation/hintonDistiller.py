@@ -60,8 +60,8 @@ class HintonDistiller(BaseDistiller):
             lossMeter.update(batchLoss.item(), n=len(data))
             accMeter.update(accuracy(nn.functional.softmax(sLogits, dim=1), target), n=len(data))
 
-            #If the number of iterations = n_samples per epoch, break (parsed through the desired dataloader length)
-            if num_iter == n_samples_per_epoch - 1: break
+            #If iterated one less than the number of specified samples, break (parsed through the desired dataloader length)
+            if num_iter == self.n_samples_per_epoch - 1: break
         
         return {'Train/Loss': lossMeter.avg,
                 'Train/Accuracy': accMeter.avg}
